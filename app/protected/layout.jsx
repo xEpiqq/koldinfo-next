@@ -57,29 +57,30 @@ const Example = ({ children }) => {
   const supabase = useMemo(() => createClient(), []);
 
   // Fetch user data on component mount and subscribe to auth state changes
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     const { data, error } = await supabase.auth.getUser();
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      console.log('User data:', data);
 
-  //     if (error) {
-  //       console.error('Error fetching user:', error);
-  //     } else {
-  //       setUser(data.user);
-  //     }
-  //   };
+      if (error) {
+        console.error('Error fetching user:', error);
+      } else {
+        setUser(data.user);
+      }
+    };
 
-  //   fetchUser();
+    fetchUser();
 
-  //   // Subscribe to auth state changes
-  //   const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-  //     setUser(session?.user ?? null);
-  //   });
+    // Subscribe to auth state changes
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
 
-  //   // Cleanup subscription on unmount
-  //   return () => {
-  //     authListener.subscription.unsubscribe();
-  //   };
-  // }, [supabase]);
+    // Cleanup subscription on unmount
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [supabase]);
 
   // Sign out handler
   const handleSignOut = async () => {

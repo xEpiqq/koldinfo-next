@@ -49,19 +49,19 @@ export const signInAction = async (formData: FormData) => {
     password,
   });
 
-  if (error) {
-    return encodedRedirect("error", "/sign-in", error.message);
-  }
+  // if (error) {
+  //   return encodedRedirect("error", "/sign-in", error.message);
+  // }
 
-  // Confirm session exists
-  const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
-  if (sessionError || !sessionData.session) {
-    return encodedRedirect(
-      "error",
-      "/sign-in",
-      "Failed to establish session. Please try again."
-    );
-  }
+  // // Confirm session exists
+  // const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+  // if (sessionError || !sessionData.session) {
+  //   return encodedRedirect(
+  //     "error",
+  //     "/sign-in",
+  //     "Failed to establish session. Please try again."
+  //   );
+  // }
 
   return redirect("/protected");
 };
