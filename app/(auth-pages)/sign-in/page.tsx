@@ -8,19 +8,9 @@ import { createClient } from "@/utils/supabase/server";
 
 export default async function Login(props: { searchParams: Promise<Message> }) {
 
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-
-
   const searchParams = await props.searchParams;
   return (
     <>
-          <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
-          {JSON.stringify(user, null, 2)}
-        </pre>
     <form className="flex-1 flex flex-col min-w-64">
       <h1 className="text-2xl font-medium">Sign in</h1>
       <p className="text-sm text-foreground">

@@ -185,7 +185,9 @@ const Example = ({ children }) => {
             <Dropdown>
               <DropdownButton as={SidebarItem} className="lg:mb-2.5 flex items-center">
                 <Avatar src="/snowma.jpeg" />
-                <SidebarLabel className="ml-2">Tailwind Labs</SidebarLabel>
+                <SidebarLabel className="ml-2">
+                  {user?.email || 'monkey@example.com'}
+                </SidebarLabel>
                 <ChevronDownIcon className="h-4 w-4 ml-auto" />
               </DropdownButton>
               <DropdownMenu className="min-w-80 lg:min-w-64" anchor="bottom start">
@@ -196,7 +198,9 @@ const Example = ({ children }) => {
                 <DropdownDivider />
                 <DropdownItem href="/teams/1" className="flex items-center">
                   <Avatar slot="icon" src="/snowma.jpeg" />
-                  <DropdownLabel className="ml-2">Tailwind Labs</DropdownLabel>
+                  <DropdownLabel className="ml-2">
+                    {user?.email || 'monkey@example.com'}
+                  </DropdownLabel>
                 </DropdownItem>
                 <DropdownDivider />
                 <DropdownItem href="/teams/create" className="flex items-center">
