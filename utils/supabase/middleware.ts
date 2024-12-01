@@ -44,6 +44,14 @@ export const updateSession = async (request: NextRequest) => {
     //   return NextResponse.redirect(new URL("/sign-in", request.url));
     // }
 
+    if (
+      request.nextUrl.pathname.startsWith("/protected") &&
+      (!user.data || user.error?.name === "AuthSessionMissingError")
+    ) {
+      return NextResponse.redirect(new URL("/sign-in", request.url));
+    }
+        
+
     if (request.nextUrl.pathname === "/" && !user.error) {
       return NextResponse.redirect(new URL("/protected", request.url));
     }
