@@ -1,19 +1,12 @@
-// middleware.ts
-import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest } from "next/server";
+import { updateSession } from "@/utils/supabase/middleware";
 
-export async function middleware(req: NextRequest) {
-  const res = NextResponse.next();
-  const supabase = createMiddlewareClient({ req, res });
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  // Protected routes
-  if (req.nextUrl.pathname.startsWith('/protected') && !user) {
-    return NextResponse.redirect(new URL('/sign-in', req.url));
-  }
-
-  return res;
+export async function middleware(request: NextRequest) {
+  return await updateSession(request);
 }
+
+export const config = {
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+  ],
+};
